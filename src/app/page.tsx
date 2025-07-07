@@ -1,3 +1,134 @@
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+
+export default function Home() {
+  const recipes = [
+    { id: 1, name: 'Vegetable Paella', cuisine: 'Spanish', time: '45 mins', difficulty: 'Medium', tags: ['Vegetarian', 'Gluten-Free'] },
+    { id: 2, name: 'Chicken Tikka Masala', cuisine: 'Indian', time: '60 mins', difficulty: 'Medium', tags: ['Poultry', 'Spicy'] },
+    // Add 4 more placeholder recipes
+  ];
+
+  return (
+    <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-orange-50 to-amber-50 dark:from-stone-900 dark:to-zinc-900">
+        <div className="text-center space-y-8 px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent"
+          >
+            Master the Art of Cooking
+          </motion.h1>
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Discover world-class recipes, professional techniques, and culinary inspiration
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              className="bg-foreground text-background px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all"
+              href="/recipes"
+            >
+              Explore Recipes
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              className="border border-foreground px-8 py-4 rounded-full font-medium hover:bg-foreground/10 transition-all"
+              href="/video-gallery"
+            >
+              Watch Videos
+            </motion.a>
+          </div>
+        </div>
+      </section>
+
+      {/* About Chef Section */}
+      <section className="py-20 px-4 sm:px-8 lg:px-16 bg-white dark:bg-black">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <h2 className="text-4xl font-bold">Executive Chef Marco Vitali</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              With over 15 years of experience in Michelin-starred kitchens, I'm passionate about
+              bringing professional techniques to home cooks. My philosophy revolves around
+              seasonal ingredients and bold flavor combinations.
+            </p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-0.5 bg-foreground"></span>
+                <span>2018 World Culinary Award Winner</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-0.5 bg-foreground"></span>
+                <span>Certified Master Chef (CMC)</span>
+              </div>
+            </div>
+          </div>
+          <div className="relative aspect-square rounded-2xl overflow-hidden">
+            <Image
+              src="/chef.jpg"
+              alt="Chef Marco Vitali"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Recipes Section */}
+      <section className="py-20 px-4 sm:px-8 lg:px-16 bg-gray-50 dark:bg-zinc-900">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-bold mb-4">Featured Recipes</h2>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <button className="px-4 py-2 rounded-full bg-foreground text-background">All</button>
+              <button className="px-4 py-2 rounded-full border border-foreground hover:bg-foreground/10">
+                Vegetarian
+              </button>
+              {/* Add more filters */}
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {recipes.map((recipe) => (
+              <motion.div
+                key={recipe.id}
+                whileHover={{ y: -5 }}
+                className="bg-white dark:bg-zinc-800 rounded-xl overflow-hidden shadow-lg"
+              >
+                <div className="relative aspect-video">
+                  <Image
+                    src={`/recipes/${recipe.id}.jpg`}
+                    alt={recipe.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{recipe.name}</h3>
+                  <div className="flex gap-2 mb-4 flex-wrap">
+                    {recipe.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-sm rounded-full bg-foreground/10"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                    <span>{recipe.cuisine}</span>
+                    <span>{recipe.time}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 import Image from "next/image";
 
 export default function Home() {
